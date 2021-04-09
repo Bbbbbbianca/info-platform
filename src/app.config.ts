@@ -1,30 +1,45 @@
 export default {
   pages: [
-    'pages/index/index',
-    'pages/welcome/welcome',
-    'pages/register/register',
-    'pages/activity/activity',
-    'pages/detail/detail',
-    'pages/sign/sign',
-    'pages/mine/mine',
-    'pages/space/space',
-    'pages/join/join',
-    'pages/feedback/feedback'
+    'pages/begin/begin',
+    'pages/user/index/index',
+    'pages/user/welcome/welcome',
+    'pages/user/register/register',
+    'pages/user/activity/activity',
+    'pages/user/detail/detail',
+    'pages/user/sign/sign',
+    'pages/user/mine/mine',
+    'pages/user/space/space',
+    'pages/user/join/join',
+    'pages/user/feedback/feedback',
+    'pages/organizer/welcome/welcome',
+    'pages/organizer/activity/activity',
+    'pages/organizer/detail/detail',
+    'pages/organizer/login/login',
+    'pages/organizer/viewlist/viewlist',
+    'pages/organizer/check/check',
+    'pages/organizer/launch/launch',
+    'pages/organizer/launch/time/time',
+    'pages/organizer/launch/typeid/typeid',
+    'pages/organizer/launch/scopeid/scopeid',
+    'pages/organizer/edit/edit',
+    'pages/organizer/edit/time/time',
+    'pages/organizer/edit/typeid/typeid',
+    'pages/organizer/edit/scopeid/scopeid',
   ],
   tabBar: {
     list: [
       {
-        pagePath: 'pages/activity/activity',
+        pagePath: 'pages/user/activity/activity',
         text: '',
         iconPath: 'assets/images/activity.png',
         selectedIconPath: 'assets/images/activity_selected.png'
       }, {
-        pagePath: 'pages/sign/sign',
+        pagePath: 'pages/user/sign/sign',
         text: '',
         iconPath: 'assets/images/sign.png',
         selectedIconPath: 'assets/images/sign_selected.png'
       }, {
-        pagePath: 'pages/mine/mine',
+        pagePath: 'pages/user/mine/mine',
         text: '',
         iconPath: 'assets/images/mine.png',
         selectedIconPath: 'assets/images/mine_selected.png'

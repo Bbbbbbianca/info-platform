@@ -12,7 +12,7 @@ export const pageToRegister = () => {
   let path = getCurrentPageUrl();
   if (!path.includes('register')) {
     Taro.navigateTo({
-      url: "/pages/register/register"
+      url: "/pages/user/register/register"
     });
   }
 }
