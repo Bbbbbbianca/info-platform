@@ -2,12 +2,27 @@
   <view class="tf-launch-container">
     <view class="tf-launch-main-part">
       <view class="tf-launch-form-part">
-        <view class="tf-launch-form-picture">
+        <view class="tf-launch-form-picture-part">
           <image
             :src="imageUrl"
             mode="scaleToFill"
-            class="tf-launch-form-picture-part"
+            class="tf-launch-form-picture"
           />
+          <view class="tf-launch-form-picture-hint">
+            <AtButton
+              class="tf-launch-form-picture-btn"
+              :on-click="toUploadPicture"
+            >
+              <image
+                src="../../../assets/images/upload.png"
+                mode="scaleToFill"
+                class="tf-launch-form-picture-icon"
+              />
+            </AtButton>
+            <view class="tf-launch-form-picture-text">
+              上传活动照片
+            </view>
+          </view>
         </view>
         <AtInput
           class="tf-launch-form-input"
@@ -227,20 +242,43 @@ export default class Launch extends Vue {
   right: 10px;
 }
 
-.tf-launch-form-picture {
-  height: 300px;
+.tf-launch-form-picture-part {
+  height: 350px;
   border-radius: 12px;
   box-shadow: 8px 8px 12px $tf-color-grey3;
   display: flex;
   justify-content: flex-end;
   margin: 16px 10px;
 
-  .tf-launch-form-picture-part {
+  .tf-launch-form-picture {
   width: 100%;
   height: 100%;
   border-radius: 12px;
   }
-  
+  .tf-launch-form-picture-hint {
+  position: absolute;
+  z-index: 10;
+  top: 138px;
+  left: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  }
+  .tf-launch-form-picture-btn {
+  padding: 0;
+  height: auto;
+  border: none;
+  line-height: normal;
+  }
+  .tf-launch-form-picture-icon {
+  width: 96px;
+  height: 96px;
+  }
+  .tf-launch-form-picture-text {
+  margin-left: 32px;
+  font-size: 36px;
+  color: $tf-color-dark1;
+  }
 }
 
 .tf-launch-form-input {
@@ -268,7 +306,7 @@ export default class Launch extends Vue {
   margin-right: 26px;
 }
 
-// 提示信息
+// 按钮
 .tf-launch-btn-part {
   position: fixed;
   bottom: 0px;
@@ -278,6 +316,7 @@ export default class Launch extends Vue {
   }
 }
 
+// 提示信息
 .tf-launch-mask {
   position: absolute;
   z-index: 89;

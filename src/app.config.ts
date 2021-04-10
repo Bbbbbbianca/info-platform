@@ -1,5 +1,6 @@
 export default {
   pages: [
+    'pages/organizer/launch/time/time',
     'pages/begin/begin',
     'pages/user/index/index',
     'pages/user/welcome/welcome',
@@ -18,7 +19,7 @@ export default {
     'pages/organizer/viewlist/viewlist',
     'pages/organizer/check/check',
     'pages/organizer/launch/launch',
-    'pages/organizer/launch/time/time',
+
     'pages/organizer/launch/typeid/typeid',
     'pages/organizer/launch/scopeid/scopeid',
     'pages/organizer/edit/edit',
