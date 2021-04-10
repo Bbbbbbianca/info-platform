@@ -102,7 +102,7 @@
       <view class="tf-edit-btn-part">
         <AtButton
           type="primary"
-          :on-click="onEdit"
+          :on-click="onEditHint"
           class="tf-actvity-btn"
         >
           确认更改
@@ -110,22 +110,54 @@
       </view>
     </view>
     <view
-      v-if="editSuccessHint"
+      v-if="editSuccessHint || editDialogVisible"
       class="tf-edit-mask"
     />
     <view
-      v-if="editSuccessHint"
+      v-if="editDialogVisible"
       class="tf-edit-dialog"
     >
       <view class="tf-edit-dialog-card">
         <view class="tf-edit-dialog-content">
           <AtIcon
-            value="check-circle"
-            size="48"
-            class="tf-edit-dialog-icon-check"
+            value="help"
+            size="60"
+            class="tf-edit-dialog-icon"
           />
           <view class="tf-edit-dialog-content-text">
-            编辑成功
+            是否需要通知活动参与者？
+          </view>
+        </view>
+
+        <view class="tf-edit-dialog-action">
+          <view
+            class="tf-edit-dialog-cancel"
+            @tap="cancelNotify"
+          >
+            否
+          </view>
+          <view
+            class="tf-edit-dialog-confirm"
+            @tap="confirmNotify"
+          >
+            是
+          </view>
+        </view>
+      </view>
+    </view>
+    <view
+      v-if="editSuccessHint"
+      class="tf-edit-tip"
+    >
+      <view class="tf-edit-tip-card">
+        <view class="tf-edit-tip-content">
+          <AtIcon
+            value="check-circle"
+            size="48"
+            class="tf-edit-tip-icon-check"
+          />
+          <view class="tf-edit-tip-content-text">
+            修改成功
           </view>
         </view>
       </view>
@@ -143,6 +175,7 @@ import { APP_ROUTES } from "../../../base/constant";
 })
 export default class Edit extends Vue {
   editSuccessHint: boolean = false;
+  editDialogVisible: boolean = false;
 
   name: string = '';
   imageUrl: string = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1605983591981&di=b075a1308a8228ac2e016f0b04c44e63&imgtype=0&src=http%3A%2F%2Fp6.itc.cn%2Fmpbp%2Fpro%2F20200927%2Ffc5dd7d801304fdb83b9f37c07ae97ae.jpeg';
@@ -160,8 +193,13 @@ export default class Edit extends Vue {
     // 存入缓存
   }
 
-  onEdit() {
-    console.log('确认更改');
+  onEditHint() {
+    this.editDialogVisible = true;
+  }
+
+  cancelNotify() {
+    this.editDialogVisible = false;
+    console.log('不通知');
     this.name = Taro.getStorageSync('activityName');
     this.startTime = Taro.getStorageSync('activityStartTime');
     this.endTime = Taro.getStorageSync('activityEndTime');
@@ -173,6 +211,26 @@ export default class Edit extends Vue {
     this.scopeId = Taro.getStorageSync('activityScopeId');
     
     // 补充编辑活动的接口
+
+    this.editSuccessHint = true;
+    Taro.navigateBack()
+  }
+
+  confirmNotify() {
+    this.editDialogVisible = false;
+    console.log('确认更改并通知');
+    this.name = Taro.getStorageSync('activityName');
+    this.startTime = Taro.getStorageSync('activityStartTime');
+    this.endTime = Taro.getStorageSync('activityEndTime');
+    this.deadline = Taro.getStorageSync('activityDeadline');
+    this.place = Taro.getStorageSync('activityPlace');
+    this.limitOfPeople = Taro.getStorageSync('activityLimitOfPeople');
+    this.description = Taro.getStorageSync('activityDescription');
+    this.typeId = Taro.getStorageSync('activityTypeId');
+    this.scopeId = Taro.getStorageSync('activityScopeId');
+    
+    // 补充编辑活动
+    // 补充通知活动更改
 
     this.editSuccessHint = true;
     Taro.navigateBack()
@@ -344,45 +402,105 @@ export default class Edit extends Vue {
 
 // 提示信息
 .tf-edit-mask {
-  position: absolute;
-  z-index: 89;
   width: 100%;
-  height: 100%;
+  height: 1800px;
+  position: absolute;
+  z-index: 950;
+  bottom: 0px;
+  top: 0px;
   background-color: $tf-color-dark1;
   opacity: 0.78;
 }
 
 .tf-edit-dialog {
   position: absolute;
-  z-index: 99;
+  z-index: 999;
+  top: 240px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .tf-edit-dialog-card {
+    width: 520px;
+    border-radius: 8px;
+    background-color: $tf-color-white;
+
+    .tf-edit-dialog-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px;
+
+      .tf-edit-dialog-icon {
+        color: $tf-color-primary;
+        border: 6px;
+        padding: 16px;
+        border-radius: 50%;
+      }
+
+      .tf-edit-dialog-content-text {
+        padding: 18px;
+        font-size: 32px;
+        color: $tf-color-dark1;
+        margin: 16px 0;
+      }
+
+    }
+
+    .tf-edit-dialog-action {
+      display: flex;
+      align-items: center;
+      border-top: 2px solid $tf-color-grey4;
+
+      .tf-edit-dialog-cancel {
+        flex: 1;
+        padding: 16px;
+        text-align: center;
+        font-size: 28px;
+        color: $tf-color-dark1;
+      }
+
+      .tf-edit-dialog-confirm {
+        flex: 1;
+        padding: 16px;
+        border-left: 2px $tf-color-grey4 solid;
+        text-align: center;
+        font-size: 28px;
+        color: $tf-color-primary;
+      }
+    }
+  }
+}
+
+.tf-edit-tip {
+  position: absolute;
+  z-index: 999;
   top: 460px;
   left: 220px;
   right: 220px;
   bottom: 500px;
   display: flex;
   justify-content: center;
-}
+  .tf-edit-tip-card {
+    width: 480px;
+    border-radius: 8px;
+    background-color: $tf-color-dark4;
+  }
 
-.tf-edit-dialog-card {
-  width: 480px;
-  border-radius: 8px;
-  background-color: $tf-color-dark4;
-}
+  .tf-edit-tip-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px;
+  }
 
-.tf-edit-dialog-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 32px;
-}
+  .tf-edit-tip-icon-check {
+    margin: 16px 0;
+    color: $tf-color-primary;
+  }
 
-.tf-edit-dialog-icon-check {
-  margin: 16px 0;
-  color: $tf-color-primary;
-}
-
-.tf-edit-dialog-content-text {
-  font-size: 32px;
-  color: $tf-color-white;
+  .tf-edit-tip-content-text {
+    font-size: 32px;
+    color: $tf-color-white;
+  }
 }
 </style>

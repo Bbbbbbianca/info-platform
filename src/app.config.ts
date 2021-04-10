@@ -1,5 +1,6 @@
 export default {
   pages: [
+    'pages/organizer/detail/detail',
 
     'pages/begin/begin',
     'pages/user/index/index',
@@ -14,7 +15,6 @@ export default {
     'pages/user/feedback/feedback',
     'pages/organizer/welcome/welcome',
     'pages/organizer/activity/activity',
-    'pages/organizer/detail/detail',
     'pages/organizer/login/login',
     'pages/organizer/viewlist/viewlist',
     'pages/organizer/check/check',

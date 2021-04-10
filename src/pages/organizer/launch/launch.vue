@@ -338,24 +338,22 @@ export default class Launch extends Vue {
 // 提示信息
 .tf-launch-mask {
   position: absolute;
-  z-index: 89;
+  z-index: 950;
   width: 100%;
-  height: 100%;
+  height: 1800px;
   background-color: $tf-color-dark1;
   opacity: 0.78;
 }
 
 .tf-launch-dialog {
   position: absolute;
-  z-index: 99;
+  z-index: 999;
   top: 460px;
   left: 220px;
   right: 220px;
   bottom: 500px;
   display: flex;
   justify-content: center;
-}
-
 .tf-launch-dialog-card {
   width: 480px;
   border-radius: 8px;
@@ -378,4 +376,6 @@ export default class Launch extends Vue {
   font-size: 32px;
   color: $tf-color-white;
 }
+}
+
 </style>
