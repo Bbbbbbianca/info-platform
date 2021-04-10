@@ -36,9 +36,7 @@ export default class Index extends Vue {
           if (loginRes.success) {
           try {
             Taro.setStorageSync('token', 'value')
-          } catch(e) {
-
-          }
+          } catch(e) {}
            _this.toWelcome();
          } else {
            _this.toRegister();

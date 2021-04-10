@@ -9,7 +9,6 @@ class httpRequest {
   baseOptions(url, data, method = "GET") {
     const BASE_URL = getBaseUrl();
     const contentType = "application/json";
-    const token = Taro.getStorageSync('token')
 
     const option: any = {
       url: BASE_URL + url,
@@ -18,7 +17,7 @@ class httpRequest {
       header: {
         'content-type': contentType,
         'Authorization': Taro.getStorageSync('Authorization'),
-        'token': token
+        'token': Taro.getStorageSync('token')
       }
     };
     return Taro.request(option);

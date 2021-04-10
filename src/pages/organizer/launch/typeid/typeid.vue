@@ -29,7 +29,6 @@ import Taro from '@tarojs/taro';
   name: 'Typeid',
 })
 export default class Typeid extends Vue {
-
   typeId: string='';
   created() {
     //获取活动类型列表
@@ -51,14 +50,10 @@ export default class Typeid extends Vue {
   }
 
   toSubmit() {
-    let pages = Taro.getCurrentPages();
-    let prevPage = pages[pages.length - 2];//上一页面
-    prevPage.setData({//直接给上移页面赋值
-      mydata: this.typeId
-    });
-    Taro.navigateBack({//返回
-      delta: 1
-    })
+    try {
+      Taro.setStorageSync('activityTypeId', this.typeId)
+    } catch(e) {}
+    Taro.navigateBack()
   }
 }
 </script>

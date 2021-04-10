@@ -34,7 +34,7 @@
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator';
 import Taro from '@tarojs/taro';
-import {APP_ROUTES} from "../../../../base/constant";
+import { getCurrentInstance } from '@tarojs/taro'
 
 @Component({
   name: 'Time',
@@ -42,6 +42,12 @@ import {APP_ROUTES} from "../../../../base/constant";
 export default class Time extends Vue {
   timeSel: string='00:00';
   dateSel: string='2021-01-01';
+  type: number=1;
+
+  created() {
+    this.type =  Number(getCurrentInstance().router.params.type)
+    console.log(this.type)
+  }
 
   onSelectDate(val) {
     this.dateSel = val.value;
@@ -54,9 +60,22 @@ export default class Time extends Vue {
   }
 
   toSubmit() {
-    Taro.navigateTo({
-      url: APP_ROUTES.LAUNCH + `?startTime=` + this.dateSel + ` ` + this.timeSel
-    })
+    if (this.type == 1) {
+      try {
+        Taro.setStorageSync('activityStartTime', this.dateSel + ' ' + this.timeSel)
+      } catch(e) {}
+    }
+    if (this.type == 2) {
+      try {
+        Taro.setStorageSync('activityEndTime', this.dateSel + ' ' + this.timeSel)
+      } catch(e) {}
+    }
+    if (this.type == 3) {
+      try {
+        Taro.setStorageSync('activityDeadline', this.dateSel + ' ' + this.timeSel)
+      } catch(e) {}
+    }
+    Taro.navigateBack()
   }
 }
 </script>

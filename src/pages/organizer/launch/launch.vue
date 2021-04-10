@@ -135,29 +135,38 @@
 
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator';
-import Taro, { useRouter } from '@tarojs/taro';
+import Taro from '@tarojs/taro';
 import { APP_ROUTES } from "../../../base/constant";
 @Component({
   name: 'Launch',
 })
 export default class Launch extends Vue {
   launchSuccessHint: boolean = false;
-
   name: string = '';
   imageUrl: string = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1605983591981&di=b075a1308a8228ac2e016f0b04c44e63&imgtype=0&src=http%3A%2F%2Fp6.itc.cn%2Fmpbp%2Fpro%2F20200927%2Ffc5dd7d801304fdb83b9f37c07ae97ae.jpeg';
   startTime: string = '';
   endTime: string = '';
-  place: string = '';
-  typeId: string = '';
-  limitOfPeople: number = 999;
-  scopeId: string = 'null';
-  description: string = '';
   deadline: string = '';
-  m: string = '';
+  place: string = '';
+  limitOfPeople: number = 999;
+  typeId: string = '';
+  scopeId: string = '';
+  description: string = '';
 
   onLaunch() {
-    console.log('确认发布')
+    console.log('确认发布');
+    this.name = Taro.getStorageSync('activityName') || '';
+    this.startTime = Taro.getStorageSync('activityStartTime') || '';
+    this.endTime = Taro.getStorageSync('activityEndTime') || '';
+    this.deadline = Taro.getStorageSync('activityDeadline') || '';
+    this.place = Taro.getStorageSync('activityPlace') || '';
+    this.limitOfPeople = Taro.getStorageSync('activityLimitOfPeople') || 999;
+    this.description = Taro.getStorageSync('activityDescription') || '';
+    this.typeId = Taro.getStorageSync('activityTypeId') || '';
+    this.scopeId = Taro.getStorageSync('activityScopeId') || '';
+    
     //补充添加活动的接口
+
     this.launchSuccessHint = true;
     Taro.navigateBack()
   }
@@ -168,15 +177,21 @@ export default class Launch extends Vue {
 
   toInputStartTime() {
     Taro.navigateTo({
-      url: APP_ROUTES.LAUNCH_TIME
+      url: APP_ROUTES.LAUNCH_TIME + `?type=1`
     }) 
   }
 
   toInputEndTime() {
     Taro.navigateTo({
-      url: APP_ROUTES.LAUNCH_TIME
+      url: APP_ROUTES.LAUNCH_TIME + `?type=2`
     }) 
   }  
+
+  toInputDeadline() {
+    Taro.navigateTo({
+      url: APP_ROUTES.LAUNCH_TIME + `?type=3`
+    }) 
+  }
 
   toInputTypeId() {
     Taro.navigateTo({
@@ -190,26 +205,28 @@ export default class Launch extends Vue {
     }) 
   }
 
-  toInputDeadline() {
-    Taro.navigateTo({
-      url: APP_ROUTES.LAUNCH_TIME
-    }) 
-  }
-
   handleInputName(val: string) {
-    this.name = val;
+    try {
+      Taro.setStorageSync('activityName', val)
+    } catch(e) {}
   }
 
   handleInputPlace(val: string) {
-    this.place = val;
+    try {
+      Taro.setStorageSync('activityPlace', val)
+    } catch(e) {}
   }
 
   handleInputLimitOfPeople(val: number) {
-    this.limitOfPeople = val;
+    try {
+      Taro.setStorageSync('activityLimitOfPeople', val)
+    } catch(e) {}
   }
 
   handleInputDescription(val: string) {
-    this.description = val;
+    try {
+      Taro.setStorageSync('activityDescription', val)
+    } catch(e) {}
   }
 }
 </script>
@@ -232,11 +249,8 @@ export default class Launch extends Vue {
 }
 // 表单
 .tf-launch-form-part {
-  position: absolute;
-  z-index: 0;
-  top: 0px;
-  left: 10px;
-  right: 10px;
+  width: 96%;
+  margin-bottom: 96px;
 }
 
 .tf-launch-form-picture-part {
@@ -268,39 +282,47 @@ export default class Launch extends Vue {
   line-height: normal;
   }
   .tf-launch-form-picture-icon {
-  width: 96px;
-  height: 96px;
+  margin-left: 48px;
+  width: 72px;
+  height: 72px;
   }
   .tf-launch-form-picture-text {
   margin-left: 32px;
-  font-size: 36px;
+  font-size: 32px;
   color: $tf-color-dark1;
   }
 }
 
 .tf-launch-form-input {
   width: 92%;
-  border-style: none;
+  font-size: 32px;
+  color: $tf-color-dark2;
+  border: none;
 }
 
 .tf-launch-form-list {
   width: 96%;
   margin-left: 5px;
-  border-style: none;
+  font-size: 32px;
+  color: $tf-color-dark2;
+  border: none;
 }
 
 .tf-launch-form-textarea-title {
   font-size: 32px;
-  color: $tf-color-dark4;
+  color: $tf-color-dark2;
   margin: 28px;
+  border: none;
 }
 
 .tf-launch-form-textarea {
-  border-style: none;
+  color: $tf-color-dark2;
+  font-size: 32px;
   background-color: $tf-color-grey1;
   width: 92%;
   margin-left: 26px;
   margin-right: 26px;
+  border: none;
 }
 
 // 按钮
