@@ -135,9 +135,8 @@
 
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator';
-import Taro from '@tarojs/taro';
-import {APP_ROUTES} from "../../../base/constant";
-
+import Taro, { useRouter } from '@tarojs/taro';
+import { APP_ROUTES } from "../../../base/constant";
 @Component({
   name: 'Launch',
 })
@@ -154,6 +153,7 @@ export default class Launch extends Vue {
   scopeId: string = 'null';
   description: string = '';
   deadline: string = '';
+  m: string = '';
 
   onLaunch() {
     console.log('确认发布')

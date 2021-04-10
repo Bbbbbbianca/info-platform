@@ -5,7 +5,7 @@ export const getLoginUsr = (code: string) => {
   return HttpRequest.get('/data/user', { code });
 }
 
-// 阻止登录
+// 组织登录
 export const getLoginOrg = (account: string, password: string) => {
   return HttpRequest.get('/data/team', { account, password });
 }

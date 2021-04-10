@@ -51,9 +51,14 @@ export default class Typeid extends Vue {
   }
 
   toSubmit() {
-    Taro.navigateBack({
-
-    }) 
+    let pages = Taro.getCurrentPages();
+    let prevPage = pages[pages.length - 2];//上一页面
+    prevPage.setData({//直接给上移页面赋值
+      mydata: this.typeId
+    });
+    Taro.navigateBack({//返回
+      delta: 1
+    })
   }
 }
 </script>

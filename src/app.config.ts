@@ -1,8 +1,6 @@
 export default {
   pages: [
-    'pages/organizer/launch/typeid/typeid',
-    'pages/organizer/launch/scopeid/scopeid',
-    
+
     'pages/begin/begin',
     'pages/user/index/index',
     'pages/user/welcome/welcome',
@@ -21,7 +19,8 @@ export default {
     'pages/organizer/viewlist/viewlist',
     'pages/organizer/check/check',
     'pages/organizer/launch/launch',
-
+    'pages/organizer/launch/scopeid/scopeid',
+    'pages/organizer/launch/typeid/typeid',
     'pages/organizer/launch/time/time',
     'pages/organizer/edit/edit',
     'pages/organizer/edit/time/time',
