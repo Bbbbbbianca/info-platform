@@ -75,9 +75,6 @@
           :value="description"
           :on-change="handleInputDescription"
         />
-        <AtImagePicker
-          :on-change="handleInputDescription"
-        />
         <AtListItem
           class="tf-launch-form-list"
           title="可报名人员"
@@ -153,8 +150,8 @@ export default class Launch extends Vue {
   endTime: string = '';
   place: string = '';
   typeId: string = '';
-  limitOfPeople: number = 0;
-  scopeId: string = '';
+  limitOfPeople: number = 999;
+  scopeId: string = 'null';
   description: string = '';
   deadline: string = '';
 

@@ -1,47 +1,90 @@
 <template>
-  <view class="taro-example" />
+  <view class="tf-typeid-container">
+    <view class="tf-typeid-main-part">
+      <AtRadio
+        :options="typeIdOptions"
+        :value="typeId"
+        :on-click="onSelectTypeId"
+        class="tf-typeid-choice"
+      />
+    </view>
+    <view class="tf-typeid-btn-part">
+      <AtButton
+        type="primary"
+        :on-click="toSubmit"
+        class="tf-typeid-btn"
+      >
+        确定
+      </AtButton>
+    </view>
+  </view>
 </template>
 
-<script>
-  export default {
-    name: "Index",
-    data() {
-      const date = new Date()
-      const years = []
-      const months = []
-      const days = []
-      for (let i = 1990; i <= date.getFullYear(); i++) {
-        years.push(i)
-      }
-      for (let i = 1; i <= 12; i++) {
-        months.push(i)
-      }
-      for (let i = 1; i <= 31; i++) {
-        days.push(i)
-      }
-      return {
-      timeSel: '12:01',
-        years: years,
-        year: date.getFullYear(),
-        months: months,
-        month: 2,
-        days: days,
-        day: 2,
-        value: [3, 1, 1]
-      }
-    },
+<script lang="ts">
+import {Vue, Component} from 'vue-property-decorator';
+import Taro from '@tarojs/taro';
+// import {APP_ROUTES} from "../../../../base/constant";
 
-    methods: {
-      onTimeChange: function(e) {
-        this.timeSel = e.detail.value
-      },
-      onChange: function(e) {
-        const val = e.detail.value
-        console.log(val)
-        this.year = this.years[val[0]]
-        this.month = this.months[val[1]]
-        this.day = this.days[val[2]]
-      }
+@Component({
+  name: 'Typeid',
+})
+export default class Typeid extends Vue {
+
+  typeId: string='';
+  created() {
+    //获取活动类型列表
+  }
+
+  data() {
+    return {
+      typeIdOptions:[
+        { label: '讲座', value: '1' },
+        { label: '比赛', value: '2' },
+        { label: '晚会', value: '3' }
+      ],
     }
   }
+
+  onSelectTypeId(val) {
+    this.typeId = val
+    console.log(val)
+  }
+
+  toSubmit() {
+    Taro.navigateBack({
+
+    }) 
+  }
+}
 </script>
+
+<style lang="scss">
+@import "src/assets/variables.scss";
+
+.tf-typeid-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tf-typeid-main-part {
+  width: 96%;
+  align-items: center;
+}
+
+.tf-typeid-choice {
+  margin: 16px 16px;
+  font-size: 32px;
+  color: $tf-color-dark2;
+  letter-spacing: 4px;
+}
+
+// 按钮
+.tf-typeid-btn-part {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  .tf-typeid-btn {
+    margin-top: 24px;
+  }
+}
+</style>

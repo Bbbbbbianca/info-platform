@@ -1,8 +1,13 @@
 import HttpRequest from "./http";
 
-// 登录
-export const getLogin = (code: string) => {
+// 用户登录
+export const getLoginUsr = (code: string) => {
   return HttpRequest.get('/data/user', { code });
+}
+
+// 阻止登录
+export const getLoginOrg = (account: string, password: string) => {
+  return HttpRequest.get('/data/team', { account, password });
 }
 
 // 注册

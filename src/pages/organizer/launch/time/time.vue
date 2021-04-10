@@ -9,9 +9,9 @@
       </view>
       <view class="tf-time-main-timepicker-part">
         <picker
-          value="timeSel"
+          :value="timeSel"
           mode="time"
-          :on-confirm="onSelectTime"
+          bindchange="onSelectTime"
         >
           <view class="tf-time-main-timepicker">
             {{ timeSel }}

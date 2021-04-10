@@ -21,7 +21,7 @@
 import {Vue, Component} from 'vue-property-decorator';
 import Taro from '@tarojs/taro';
 import {APP_ROUTES} from "../../../base/constant";
-import { getLogin } from '../../../base/servers/servers';
+import { getLoginUsr } from '../../../base/servers/servers';
 
 @Component({
   name: 'Index'
@@ -32,8 +32,13 @@ export default class Index extends Vue {
     const _this = this;
     Taro.login({
       success: (res: any) => {
-        getLogin(res.code).then((loginRes: any) => {
+        getLoginUsr(res.code).then((loginRes: any) => {
           if (loginRes.success) {
+          try {
+            Taro.setStorageSync('token', 'value')
+          } catch(e) {
+
+          }
            _this.toWelcome();
          } else {
            _this.toRegister();
