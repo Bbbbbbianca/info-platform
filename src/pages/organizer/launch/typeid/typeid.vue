@@ -1,63 +1,47 @@
-
 <template>
-  <view class="page-body">
-    <view class="page-section">
-      <text>时间日期选择器-有默认</text>
-      <view>
-        <timePickerColumn
-          :start-time="startTime"
-          :end-time="endTime"
-          :default-time="defaultTime"
-          @result="onResult"
-        >
-          <input
-            placeholder="请选择"
-            :value="time"
-          >
-        </timePickerColumn>
-      </view>
-    </view>
-  </view>
+  <view class="taro-example" />
 </template>
- 
+
 <script>
-import timePickerColumn from "./component/time-picker-column/picker";
-export default {
-  components:{
-    timePickerColumn
-  },
-  data() {
-    return {
-      time:'',
-      startTime: new Date(),
-      endTime: new Date(),
-      default:new Date(),
-    };
-  },
-  created(){
-     this.startTime = this.getTime("min", 1);
-      this.endTime = this.getTime("year", 2);
-      this.defaultTime = this.getTime("min", 30);
-  },
-  methods: {
-      getTime(key, number, date) {
-      let _date = date ? new Date(date) : new Date();
-      if (key === "min") {
-        _date.setMinutes(_date.getMinutes() + number);
+  export default {
+    name: "Index",
+    data() {
+      const date = new Date()
+      const years = []
+      const months = []
+      const days = []
+      for (let i = 1990; i <= date.getFullYear(); i++) {
+        years.push(i)
       }
-      if (key === "hour") {
-        _date.setHours(_date.getHours() + number);
+      for (let i = 1; i <= 12; i++) {
+        months.push(i)
       }
-      if (key === "year") {
-        _date.setFullYear(_date.getFullYear() + number);
+      for (let i = 1; i <= 31; i++) {
+        days.push(i)
       }
-      return _date;
+      return {
+      timeSel: '12:01',
+        years: years,
+        year: date.getFullYear(),
+        months: months,
+        month: 2,
+        days: days,
+        day: 2,
+        value: [3, 1, 1]
+      }
     },
-    onResult(arr) {
-      let time =
-        arr[0] + "-" + arr[1] + "-" + arr[2] + " " + arr[3] + ":" + arr[4];
-        this.time = time;
-    },
-  },
-};
+
+    methods: {
+      onTimeChange: function(e) {
+        this.timeSel = e.detail.value
+      },
+      onChange: function(e) {
+        const val = e.detail.value
+        console.log(val)
+        this.year = this.years[val[0]]
+        this.month = this.months[val[1]]
+        this.day = this.days[val[2]]
+      }
+    }
+  }
 </script>

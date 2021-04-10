@@ -1,12 +1,22 @@
 <template>
   <view class="tf-time-container">
     <view class="tf-time-main-part">
-      <view class="tf-time-main-calender">
+      <view class="tf-time-main-calender-part">
         <AtCalendar
           :on-day-click="onSelectDate"
+          class="tf-time-main-calender"
         /> 
       </view>
-      <view class="tf-time-main-timepicker">
+      <view class="tf-time-main-timepicker-part">
+        <picker
+          value="timeSel"
+          mode="time"
+          :on-confirm="onSelectTime"
+        >
+          <view class="tf-time-main-timepicker">
+            {{ timeSel }}
+          </view>
+        </picker>
       </view>
     </view>
     <view class="tf-time-btn-part">
@@ -24,27 +34,29 @@
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator';
 import Taro from '@tarojs/taro';
-import {APP_ROUTES} from "../../../../base/constant";
+// import {APP_ROUTES} from "../../../../base/constant";
 
 @Component({
   name: 'Time',
 })
 export default class Time extends Vue {
-  time: string='00:00';
-  date: string='2021-01-01';
+  timeSel: string='00:00';
+  dateSel: string='2021-01-01';
 
-  onSelectDate(val: string) {
-    this.date = val;
-    console.log(val);
+  onSelectDate(val) {
+    this.dateSel = val.value;
+    console.log(val.value);
   }
 
-  onSelectTime(val: string) {
-    this.time = val;
-    console.log(val);
+  onSelectTime(val) {
+    this.timeSel = val.value;
+    console.log(val.value);
   }
 
   toSubmit() {
-    Taro.navigateBack() 
+    Taro.navigateBack({
+
+    }) 
   }
 }
 </script>
@@ -58,20 +70,34 @@ export default class Time extends Vue {
 }
 
 .tf-time-main-part {
-  position: absolute;
   width: 100%;
   align-items: center;
 }
 
+.tf-time-main-calender-part {
+  border-bottom: 2px solid #cccccc;
+}
+
 .tf-time-main-calender {
   width: 100%;
-  background-color: $tf-color-white;
-  border-top: 2px #f8f8f8 solid;
+  margin-bottom: 32px;
+  color: $tf-color-dark2;
+  letter-spacing: 4px;
 }
 
 .tf-time-main-timepicker {
-  width: 100%;
+  border-bottom: 2px solid #cccccc;
+  height: 80px;
 }
+
+.tf-time-main-timepicker {
+  padding-top: 32px;
+  padding-left: 300px;
+  width: 100%;
+  letter-spacing: 8px;
+  color: $tf-color-dark2;
+}
+
 // 按钮
 .tf-time-btn-part {
   position: fixed;
