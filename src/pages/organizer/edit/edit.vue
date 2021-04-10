@@ -403,7 +403,7 @@ export default class Edit extends Vue {
 // 提示信息
 .tf-edit-mask {
   width: 100%;
-  height: 1800px;
+  height: 1600px;
   position: absolute;
   z-index: 950;
   bottom: 0px;
@@ -415,7 +415,7 @@ export default class Edit extends Vue {
 .tf-edit-dialog {
   position: absolute;
   z-index: 999;
-  top: 240px;
+  top: 540px;
   width: 100%;
   display: flex;
   justify-content: center;

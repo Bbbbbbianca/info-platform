@@ -109,7 +109,7 @@
         <AtListItem
           class="tf-detail-drawer-list"
           title="分享"
-          :on-click="toShare"
+          :on-click="onShareHint"
         />
       </view>
     </AtDrawer>
@@ -167,6 +167,48 @@
         </view>
       </view>
     </view>
+    <AtActionSheet 
+      :is-opened="shareDialogVisible"
+      cancel-text="取消"
+      :on-close="handleCancelShare"
+    >
+      <view class="tf-detail-share-part">
+        <view
+          class="tf-detail-share-wx"
+        >
+          <AtButton
+            class="tf-detail-share-wx-button"
+            :on-click="toShareWx"
+          >
+            <image
+              src="../../../assets/images/wx.png"
+              mode="scaleToFill"
+              class="tf-detail-share-wx-icon"
+            />
+          </AtButton>
+          <view class="tf-detail-share-wx-text">
+            微信
+          </view>
+        </view>
+        <view
+          class="tf-detail-share-pyq"
+        >
+          <AtButton
+            class="tf-detail-share-pyq-button"
+            :on-click="toSharePyq"
+          >
+            <image
+              src="../../../assets/images/pyq.png"
+              mode="scaleToFill"
+              class="tf-detail-share-pyq-icon"
+            />
+          </AtButton>
+          <view class="tf-detail-share-pyq-text">
+            朋友圈
+          </view>
+        </view>
+      </view>
+    </AtActionSheet>
   </view>
 </template>
 
@@ -265,10 +307,21 @@ export default class Detail extends Vue {
 
   onShareHint() {
     console.log('点击分享活动')
+    this.actionVisible = false;
     this.shareDialogVisible = true;
   }
 
-  toShare() {
+  handleCancelShare() {
+    this.shareDialogVisible = false;
+  }
+
+  toShareWx() {
+    console.log('分享到微信')
+    // 补充分享部分代码
+  }
+
+  toSharePyq() {
+    console.log('分享到朋友圈')
     // 补充分享部分代码
   }
 }
@@ -527,4 +580,68 @@ export default class Detail extends Vue {
     color: $tf-color-white;
   }
 }
+
+.tf-detail-share-part {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .tf-detail-share-wx {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tf-detail-share-wx-button {
+    padding-top: 72px;
+    height: auto;
+    border: none;
+    line-height: normal;  
+  }
+
+  .tf-detail-share-wx-icon {
+    margin-left: 48px;
+    width: 84px;
+    height: 84px;  
+  }
+
+  .tf-detail-share-wx-text {
+    margin-left: 32px;
+    padding-top: 16px;
+    padding-bottom: 48px;
+    font-size: 28px;
+    color: $tf-color-dark2;
+  }
+
+  .tf-detail-share-pyq {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tf-detail-share-pyq-button {
+    padding-top: 72px;
+    height: auto;
+    border: none;
+    line-height: normal;  
+  }
+
+  .tf-detail-share-pyq-icon {
+    margin-left: 48px;
+    width: 84px;
+    height: 84px;  
+  }
+
+  .tf-detail-share-pyq-text {
+    margin-left: 32px;
+    padding-top: 16px;
+    padding-bottom: 48px;
+    font-size: 28px;
+    color: $tf-color-dark2;
+  }
+}
+
+
 </style>

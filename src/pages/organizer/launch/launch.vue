@@ -340,7 +340,7 @@ export default class Launch extends Vue {
   position: absolute;
   z-index: 950;
   width: 100%;
-  height: 1800px;
+  height: 1600px;
   background-color: $tf-color-dark1;
   opacity: 0.78;
 }
